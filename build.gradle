@@ -1,0 +1,44 @@
+apply plugin: 'groovy'
+
+buildDir = 'target'
+jar.baseName = 'jconf'
+
+repositories {
+    mavenCentral()
+}
+
+task initProject(description: 'Initialize project directory structure.') << {
+    def defaultPackage = "com/nateriver520/jconf";
+    ['groovy', 'resources'].each { String dir ->
+        sourceSets*."$dir".srcDirs*.each { dir1 ->
+            def newDir = new File(dir1, defaultPackage);
+            newDir.mkdirs();
+        }
+    }
+}
+
+task fatJar(type: Jar) {
+    manifest {
+    }
+    baseName = jar.baseName + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+dependencies {
+    compile('org.codehaus.groovy:groovy-all:2.3.3')
+    runtime('org.codehaus.groovy:groovy-all:2.3.3')
+
+    testCompile('org.spockframework:spock-core:0.7-groovy-2.0')
+}
+
+
+/*
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file://localhost/tmp/myRepo/")
+        }
+    }
+}
+*/

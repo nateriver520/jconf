@@ -1,0 +1,14 @@
+{
+  "person": {
+    "name": "Guillaume",
+    "age": 33,
+    "score": 93.3,
+    "id": 110000012129,
+    "pets": [
+      "dog",
+      "cat"
+    ],
+    "is_admin": true
+  },
+  "work": "cs"
+}
