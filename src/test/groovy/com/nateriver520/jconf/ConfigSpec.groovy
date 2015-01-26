@@ -24,7 +24,7 @@ class ConfigSpec extends Specification {
     }
 
 
-    def "parser yaml config"(){
+    def "parser yaml config"() {
         when:
         def conf = new Config(this.getClass().getResource('/yaml/config.yml').path)
 
@@ -37,6 +37,23 @@ class ConfigSpec extends Specification {
         // key miss
         conf.getString("persion.mail", "example@example.com") == "example@example.com"
     }
+
+    def "parser ini config"() {
+        when:
+        def conf = new Config(this.getClass().getResource('/ini/config.ini').path)
+
+        then:
+        // can find key
+        conf.getString("dev.JDBC_URL") == "jdbc:h2:mem:mem_test;MODE=Oracle"
+        conf.getString("prod.JDBC_URL") == "jdbc:oracle:thin:@prod-oracle:1521:prod"
+        conf.getString("dev.JDBC_USERNAME") == ""
+
+        conf.getInteger("dev.JDBC_PORT") == 3006
+
+        // key miss
+        conf.getString("persion.mail", "example@example.com") == "example@example.com"
+    }
+
 
     def "parser config without assign file type"() {
         when:

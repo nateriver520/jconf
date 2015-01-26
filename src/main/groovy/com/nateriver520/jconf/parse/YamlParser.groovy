@@ -7,6 +7,7 @@ import com.nateriver520.jconf.core.ConfNode
  */
 class YamlParser implements Parser {
 
+    @Override
     ConfNode parse(def confText) {
         def yamlNode = Yaml.load(confText)
         def rootNode = new ConfNode()

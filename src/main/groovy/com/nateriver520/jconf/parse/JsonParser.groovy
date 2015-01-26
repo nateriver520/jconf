@@ -8,6 +8,7 @@ import groovy.json.internal.LazyMap
 class JsonParser implements Parser {
     def static slurper = new JsonSlurper()
 
+    @Override
     ConfNode parse(def confText) {
         def jsonNode = slurper.parseText(confText)
         def rootNode = new ConfNode()
