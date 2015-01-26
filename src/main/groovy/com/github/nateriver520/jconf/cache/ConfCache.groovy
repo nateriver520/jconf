@@ -1,6 +1,6 @@
-package com.nateriver520.jconf.cache
+package com.github.nateriver520.jconf.cache
 
-import com.nateriver520.jconf.core.ConfNode
+import com.github.nateriver520.jconf.core.ConfNode
 
 class ConfCache implements Cache<String, ConfNode> {
     private def map = [:]

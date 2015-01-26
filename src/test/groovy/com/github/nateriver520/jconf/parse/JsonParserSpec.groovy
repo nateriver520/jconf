@@ -1,4 +1,4 @@
-package com.nateriver520.jconf.parse
+package com.github.nateriver520.jconf.parse
 
 import spock.lang.Specification
 

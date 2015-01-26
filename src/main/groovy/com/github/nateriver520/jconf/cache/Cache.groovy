@@ -1,4 +1,4 @@
-package com.nateriver520.jconf.cache
+package com.github.nateriver520.jconf.cache
 
 
 interface Cache <K,V>{

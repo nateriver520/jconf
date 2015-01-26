@@ -1,4 +1,4 @@
-package com.nateriver520.jconf
+package com.github.nateriver520.jconf
 
 import spock.lang.Specification
 

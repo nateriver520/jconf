@@ -1,6 +1,6 @@
-package com.nateriver520.jconf.parse
+package com.github.nateriver520.jconf.parse
 
-import com.nateriver520.jconf.core.ConfNode
+import com.github.nateriver520.jconf.core.ConfNode
 import groovy.json.JsonSlurper
 import groovy.json.internal.LazyMap
 

@@ -1,6 +1,6 @@
-package com.nateriver520.jconf.parse
+package com.github.nateriver520.jconf.parse
 
-import com.nateriver520.jconf.core.ConfNode
+import com.github.nateriver520.jconf.core.ConfNode
 import org.ini4j.Ini
 import org.ini4j.Profile
 

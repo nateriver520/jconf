@@ -1,7 +1,7 @@
-package com.nateriver520.jconf.parse
+package com.github.nateriver520.jconf.parse
 
 import org.ho.yaml.Yaml
-import com.nateriver520.jconf.core.ConfNode
+import com.github.nateriver520.jconf.core.ConfNode
 /**
  * Created by yangshuo on 1/26/15.
  */

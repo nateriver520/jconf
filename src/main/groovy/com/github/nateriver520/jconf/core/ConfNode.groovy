@@ -1,4 +1,4 @@
-package com.nateriver520.jconf.core
+package com.github.nateriver520.jconf.core
 
 /**
  * Use to represent conf node

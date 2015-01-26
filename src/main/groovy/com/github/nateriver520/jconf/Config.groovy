@@ -1,11 +1,11 @@
-package com.nateriver520.jconf
+package com.github.nateriver520.jconf
 
-import com.nateriver520.jconf.cache.ConfCache
-import com.nateriver520.jconf.core.ConfNode
-import com.nateriver520.jconf.parse.IniParser
-import com.nateriver520.jconf.parse.JsonParser
-import com.nateriver520.jconf.parse.Parser
-import com.nateriver520.jconf.parse.YamlParser
+import com.github.nateriver520.jconf.cache.ConfCache
+import com.github.nateriver520.jconf.core.ConfNode
+import com.github.nateriver520.jconf.parse.IniParser
+import com.github.nateriver520.jconf.parse.JsonParser
+import com.github.nateriver520.jconf.parse.Parser
+import com.github.nateriver520.jconf.parse.YamlParser
 
 
 class Config {

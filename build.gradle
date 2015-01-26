@@ -8,7 +8,7 @@ repositories {
 }
 
 task initProject(description: 'Initialize project directory structure.') << {
-    def defaultPackage = "com/nateriver520/jconf";
+    def defaultPackage = "com/github/nateriver520/jconf";
     ['groovy', 'resources'].each { String dir ->
         sourceSets*."$dir".srcDirs*.each { dir1 ->
             def newDir = new File(dir1, defaultPackage);
@@ -33,14 +33,3 @@ dependencies {
 
     testCompile('org.spockframework:spock-core:0.7-groovy-2.0')
 }
-
-
-/*
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: "file://localhost/tmp/myRepo/")
-        }
-    }
-}
-*/
