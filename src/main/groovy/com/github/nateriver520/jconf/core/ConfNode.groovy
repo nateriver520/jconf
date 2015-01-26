@@ -11,6 +11,10 @@ class ConfNode {
     def get(String key){
         children.get(key)
     }
+
+    def set(String key, ConfNode child){
+        children.put(key, child)
+    }
 }
 
 enum NodeType {
@@ -19,8 +23,7 @@ enum NodeType {
     OBJECT,
     ARRAY,
     BOOLEAN,
-    ROOT,
-    SECTION
+    ROOT
 
     static NodeType getType(def className){
         switch (className) {

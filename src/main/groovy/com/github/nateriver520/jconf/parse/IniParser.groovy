@@ -21,7 +21,7 @@ class IniParser implements Parser {
     def fillNode(ConfNode root, Ini ini) {
         ini.keySet().each { sectionKey ->
             // section
-            ConfNode sectionNode = new ConfNode(type: NodeType.SECTION)
+            ConfNode sectionNode = new ConfNode(type: NodeType.OBJECT)
             Profile.Section section = ini.get(sectionKey)
             section.each { k, v ->
                 ConfNode child = new ConfNode(value: v, type: NodeType.getType(v.class))

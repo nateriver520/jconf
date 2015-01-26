@@ -51,7 +51,7 @@ Here is example
     conf.getString("work") //"cs"
 
     // default value
-    // don't exist so return default value: example@example.com
+    // don't exist so return default value: "example@example.com"
     conf.getString("persion.mail", "example@example.com")
 
     // use other separator
@@ -59,6 +59,10 @@ Here is example
     conf.separator = "::"
 
     conf.getString("person::name") // 'Guillaume'
+
+    //we also can set config manually
+    conf.set("person::name", "jack")
+    conf.get("person::name") // "jack"
 
 ```
 Road Map

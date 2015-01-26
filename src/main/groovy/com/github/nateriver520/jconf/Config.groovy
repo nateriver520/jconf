@@ -2,6 +2,7 @@ package com.github.nateriver520.jconf
 
 import com.github.nateriver520.jconf.cache.ConfCache
 import com.github.nateriver520.jconf.core.ConfNode
+import com.github.nateriver520.jconf.core.NodeType
 import com.github.nateriver520.jconf.parse.IniParser
 import com.github.nateriver520.jconf.parse.JsonParser
 import com.github.nateriver520.jconf.parse.Parser
@@ -46,7 +47,7 @@ class Config {
     }
 
     Config(String confPath) {
-        this(confPath, confPath.lastIndexOf('.').with {it != -1 ? confPath[it+1..-1] : ''})
+        this(confPath, confPath.lastIndexOf('.').with { it != -1 ? confPath[it + 1..-1] : '' })
     }
 
     private ConfNode get(String key) {
@@ -94,6 +95,22 @@ class Config {
     Integer getInteger(String key, Integer defVal = 0) {
         ConfNode node = get(key)
         node ? node.value.toInteger() : defVal
+    }
+
+    def set(String key, def v) {
+        def node = root
+        def keyList = key.split(separator)
+        keyList.each { k ->
+            ConfNode child = new ConfNode()
+            if (keyList.last() == k) {
+                child.type = NodeType.getType(v.class)
+                child.value = v
+            } else {
+                child.type = NodeType.OBJECT
+            }
+            node.set(k, child)
+            node = child
+        }
     }
 }
 

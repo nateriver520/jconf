@@ -83,4 +83,16 @@ class ConfigSpec extends Specification {
         // key miss
         conf.getString("persion::mail", "example@example.com") == "example@example.com"
     }
+
+    def "set config to change conf"() {
+        when:
+        def conf = new Config(this.getClass().getResource('/yaml/config.yml').path, 'yml')
+        conf.set("default.redis.port", 3000)
+
+        then:
+        // conf key default.redis.port should be set to 3000
+        conf.getInteger("default.redis.port") == 3000
+
+    }
+
 }
