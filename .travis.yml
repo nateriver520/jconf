@@ -1,6 +1,1 @@
-script: ./gradle clean build
-
-jdk:
-  - oraclejdk7
-  - openjdk6
-
+language: java
