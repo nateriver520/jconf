@@ -47,12 +47,17 @@ Here is example
     conf.getLong("person.id") // 110000012129
     conf.getBoolean("person.is_admin") // true
     conf.getList("person.pets") // ["dog", "cat"]
-    conf.getString("work") == "cs"
+    conf.getString("work") //"cs"
 
     // key miss
     conf.getString("persion.mail", "example@example.com") // don't exist so return default value: example@example.com
 ```
+Road Map
+------------
+- Support XML
+- Support INI
+- Push to maven repository
 
 LICENSE
 -------------
-[MIT](LICENSE.md)
+[MIT](LICENSE)
