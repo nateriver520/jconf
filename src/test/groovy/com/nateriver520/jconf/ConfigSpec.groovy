@@ -23,7 +23,22 @@ class ConfigSpec extends Specification {
         conf.getString("persion.mail", "example@example.com") == "example@example.com"
     }
 
-    def "parser json config without assign file type"() {
+
+    def "parser yaml config"(){
+        when:
+        def conf = new Config(this.getClass().getResource('/yaml/config.yml').path)
+
+        then:
+        // can find key
+        conf.getInteger("default.redis.port") == 6379
+        conf.getString("default.redis.host") == "127.0.0.1"
+        conf.getString("production.redis.db") == "0"
+
+        // key miss
+        conf.getString("persion.mail", "example@example.com") == "example@example.com"
+    }
+
+    def "parser config without assign file type"() {
         when:
         def conf = new Config(this.getClass().getResource('/json/config.json').path)
 

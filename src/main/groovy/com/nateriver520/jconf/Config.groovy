@@ -4,10 +4,9 @@ import com.nateriver520.jconf.cache.ConfCache
 import com.nateriver520.jconf.core.ConfNode
 import com.nateriver520.jconf.parse.JsonParser
 import com.nateriver520.jconf.parse.Parser
+import com.nateriver520.jconf.parse.YamlParser
 
-/**
- * Created by yangshuo on 1/26/15.
- */
+
 class Config {
     private static def _cache = new ConfCache()
     ConfNode root
@@ -26,6 +25,10 @@ class Config {
             case SupportType.JSON.val:
                 this.parser = new JsonParser()
                 break
+            case SupportType.YAML.val:
+                this.parser = new YamlParser()
+                break
+
             default:
                 throw new Exception("don't support type:${fileType} conf file.")
         }
@@ -49,7 +52,7 @@ class Config {
 
             node = node.get(k)
         }
-        node && node.value ? node : null
+        node && node.value != null ? node : null
     }
 
     String getString(String key, String defVal = '') {
@@ -89,7 +92,8 @@ class Config {
 }
 
 enum SupportType {
-    JSON("json")
+    JSON("json"),
+    YAML("yml")
 
     def val
 

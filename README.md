@@ -1,12 +1,14 @@
 JConf
 ===============
 
-JConf is a easy and light library for loading config in Java or Groovy applications
+JConf is a easy and light library for config module in Java or Groovy applications.
+
+Currently this library support [JSON](http://en.wikipedia.org/wiki/JSON), [YAML](http://en.wikipedia.org/wiki/YAML)
 
 Notice
 ---------------
 
-*** This package is still in dev status, not ready for prod ***
+***This package is still in dev status, not ready for prod***
 
 Example
 ---------------
