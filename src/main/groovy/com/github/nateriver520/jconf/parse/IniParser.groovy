@@ -1,6 +1,7 @@
 package com.github.nateriver520.jconf.parse
 
 import com.github.nateriver520.jconf.core.ConfNode
+import com.github.nateriver520.jconf.core.NodeType
 import org.ini4j.Ini
 import org.ini4j.Profile
 
@@ -11,7 +12,7 @@ class IniParser implements Parser {
     ConfNode parse(def confText) {
         def ini = new Ini()
         ini.load(new ByteArrayInputStream(confText.getBytes()))
-        def rootNode = new ConfNode()
+        def rootNode = new ConfNode(type: NodeType.ROOT)
 
         fillNode(rootNode, ini)
         return rootNode
@@ -20,10 +21,10 @@ class IniParser implements Parser {
     def fillNode(ConfNode root, Ini ini) {
         ini.keySet().each { sectionKey ->
             // section
-            ConfNode sectionNode = new ConfNode()
+            ConfNode sectionNode = new ConfNode(type: NodeType.SECTION)
             Profile.Section section = ini.get(sectionKey)
             section.each { k, v ->
-                ConfNode child = new ConfNode(value: v, type: v.class)
+                ConfNode child = new ConfNode(value: v, type: NodeType.getType(v.class))
                 sectionNode.children.put(k, child)
             }
 

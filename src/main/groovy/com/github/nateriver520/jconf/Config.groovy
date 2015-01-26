@@ -12,6 +12,7 @@ class Config {
     private static def _cache = new ConfCache()
     ConfNode root
     Parser parser
+    def separator = "\\."
 
     Config(String confPath, String fileType) {
         // get the absolute path for cache
@@ -50,7 +51,7 @@ class Config {
 
     private ConfNode get(String key) {
         ConfNode node = root
-        key.split("\\.").each { k ->
+        key.split(separator).each { k ->
             if (!node) {
                 return
             }

@@ -69,4 +69,18 @@ class ConfigSpec extends Specification {
         Exception ex = thrown()
         ex.getMessage().contains("don't support type")
     }
+
+    def "parser json config with separator"() {
+        when:
+        def conf = new Config(this.getClass().getResource('/json/config.json').path, 'json')
+        // set separator with ::
+        conf.separator = "::"
+
+        then:
+        // can find key
+        conf.getString("person::name") == 'Guillaume'
+
+        // key miss
+        conf.getString("persion::mail", "example@example.com") == "example@example.com"
+    }
 }

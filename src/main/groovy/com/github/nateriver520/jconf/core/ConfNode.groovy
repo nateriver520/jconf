@@ -11,28 +11,6 @@ class ConfNode {
     def get(String key){
         children.get(key)
     }
-
-    def setType(def className) {
-
-        switch (className) {
-            case Integer:
-            case Double:
-            case Float:
-                this.type = NodeType.NUMBER
-                break
-            case String:
-                this.type = NodeType.STRING
-                break
-            case Boolean:
-                this.type = NodeType.BOOLEAN
-                break
-            case List:
-                this.type = NodeType.ARRAY
-                break
-            default:
-                this.type = NodeType.OBJECT
-        }
-    }
 }
 
 enum NodeType {
@@ -40,5 +18,27 @@ enum NodeType {
     STRING,
     OBJECT,
     ARRAY,
-    BOOLEAN
+    BOOLEAN,
+    ROOT,
+    SECTION
+
+    static NodeType getType(def className){
+        switch (className) {
+            case Integer:
+            case Double:
+            case Float:
+                return NUMBER
+            case String:
+                return STRING
+
+            case Boolean:
+                return BOOLEAN
+
+            case List:
+                return ARRAY
+
+            default:
+                return OBJECT
+        }
+    }
 }

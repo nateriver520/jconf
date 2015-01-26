@@ -38,6 +38,7 @@ Here is example
 
 ```groovy
 
+    // support yaml, ini
     def conf = new Config('conf.json')
 
     conf.getString("person.name") // 'Guillaume'
@@ -49,8 +50,16 @@ Here is example
     conf.getList("person.pets") // ["dog", "cat"]
     conf.getString("work") //"cs"
 
-    // key miss
-    conf.getString("persion.mail", "example@example.com") // don't exist so return default value: example@example.com
+    // default value
+    // don't exist so return default value: example@example.com
+    conf.getString("persion.mail", "example@example.com")
+
+    // use other separator
+    // set separator with ::
+    conf.separator = "::"
+
+    conf.getString("person::name") // 'Guillaume'
+
 ```
 Road Map
 ------------
