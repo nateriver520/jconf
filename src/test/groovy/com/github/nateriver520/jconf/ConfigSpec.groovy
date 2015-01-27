@@ -84,15 +84,30 @@ class ConfigSpec extends Specification {
         conf.getString("persion::mail", "example@example.com") == "example@example.com"
     }
 
-    def "set config to change conf"() {
+    def "modify config"() {
         when:
         def conf = new Config(this.getClass().getResource('/yaml/config.yml').path, 'yml')
         conf.set("default.redis.port", 3000)
+        conf.set("mock.setting.port", 2000)
 
         then:
         // conf key default.redis.port should be set to 3000
         conf.getInteger("default.redis.port") == 3000
+        conf.getInteger("mock.setting.port") == 2000
 
+        when:
+        conf.del("default.redis.port")
+
+        // exist mock.setting.port
+        conf.exist("mock.setting.port")
+        conf.del("mock.setting.port")
+
+        then:
+        conf.getString("default.redis.port") == ""
+        !conf.exist("default.redis.port")
+
+        conf.getInteger("mock.setting.port") == 0
+        !conf.exist("mock.setting.port")
     }
 
 }

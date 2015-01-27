@@ -12,7 +12,7 @@ class JsonParser implements Parser {
     @Override
     ConfNode parse(def confText) {
         def jsonNode = slurper.parseText(confText)
-        def rootNode = new ConfNode(type: NodeType.ROOT)
+        def rootNode = new ConfNode(type: NodeType.OBJECT)
         fillNode(rootNode, jsonNode)
         return rootNode
     }
@@ -23,7 +23,11 @@ class JsonParser implements Parser {
             return
         }
         jsonNode.each { k, v ->
-            ConfNode child = new ConfNode(type: NodeType.getType(v.class))
+            ConfNode child = new ConfNode(
+                    type: NodeType.getType(v.class),
+                    parent: root
+            )
+
             root.children.put(k, child)
             fillNode(child, v)
         }

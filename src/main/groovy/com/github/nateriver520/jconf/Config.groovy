@@ -52,14 +52,12 @@ class Config {
 
     private ConfNode get(String key) {
         ConfNode node = root
-        key.split(separator).each { k ->
-            if (!node) {
-                return
-            }
-
+        key.split(separator).find { k ->
+            if (!node) return true
             node = node.get(k)
+            return false
         }
-        node && node.value != null ? node : null
+        node
     }
 
     String getString(String key, String defVal = '') {
@@ -101,16 +99,30 @@ class Config {
         def node = root
         def keyList = key.split(separator)
         keyList.each { k ->
-            ConfNode child = new ConfNode()
-            if (keyList.last() == k) {
-                child.type = NodeType.getType(v.class)
-                child.value = v
-            } else {
-                child.type = NodeType.OBJECT
+            ConfNode next = node.get(k)
+            if (!next || keyList.last() == k) {
+                // add new one
+                ConfNode child = new ConfNode(parent: node)
+                if (keyList.last() == k) {
+                    child.type = NodeType.getType(v.class)
+                    child.value = v
+                } else {
+                    child.type = NodeType.OBJECT
+                }
+                node.children.put(k, child)
+                next = child
             }
-            node.set(k, child)
-            node = child
+            node = next
         }
+    }
+
+    def del(String key) {
+        def node = get(key)
+        if (node) node.parent.del(key.split(separator).last())
+    }
+
+    def exist(String key) {
+        get(key) ? true : false
     }
 }
 

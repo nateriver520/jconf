@@ -41,7 +41,7 @@ Here is example
     // support yaml, ini
     def conf = new Config('conf.json')
 
-    conf.getString("person.name") // 'Guillaume'
+    conf.getString("person.name") // "Guillaume"
     conf.getInteger("person.age") // 33
     conf.getDouble("person.score") // 93.3
     conf.getFloat("person.score") // 93.3
@@ -58,12 +58,15 @@ Here is example
     // set separator with ::
     conf.separator = "::"
 
-    conf.getString("person::name") // 'Guillaume'
+    conf.getString("person::name") // "Guillaume"
 
-    //we also can set config manually
+    // we also can set config manually
     conf.set("person::name", "jack")
     conf.get("person::name") // "jack"
 
+    // delete conf
+    conf.del("person::name")
+    conf.exist("person::name") // false
 ```
 Road Map
 ------------

@@ -11,6 +11,6 @@ class JsonParserSpec extends Specification {
         when:
             def root = jsonParser.parse(this.getClass().getResource( '/json/config.json' ).text)
         then:
-            root.children.size() == 2
+            root.children.size() == 3
     }
 }

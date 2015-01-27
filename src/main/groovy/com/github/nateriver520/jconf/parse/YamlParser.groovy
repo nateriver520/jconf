@@ -10,7 +10,7 @@ class YamlParser implements Parser {
     @Override
     ConfNode parse(def confText) {
         def yamlNode = Yaml.load(confText)
-        def rootNode = new ConfNode(type: NodeType.ROOT)
+        def rootNode = new ConfNode(type: NodeType.OBJECT)
         fillNode(rootNode, yamlNode)
         return rootNode
     }
@@ -21,7 +21,10 @@ class YamlParser implements Parser {
             return
         }
         yamlNode.each { k, v ->
-            ConfNode child = new ConfNode(type: NodeType.getType(v.class))
+            ConfNode child = new ConfNode(
+                    type: NodeType.getType(v.class),
+                    parent: root
+            )
             root.children.put(k, child)
             fillNode(child, v)
         }

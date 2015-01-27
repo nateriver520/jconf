@@ -10,5 +10,15 @@
     ],
     "is_admin": true
   },
-  "work": "cs"
+  "work": "cs",
+  "course": [
+    {
+      "name": "math",
+      "time": "3 week"
+    },
+    {
+      "name": "physics",
+      "time": "3 week"
+    }
+  ]
 }

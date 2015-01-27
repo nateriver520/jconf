@@ -5,6 +5,8 @@ package com.github.nateriver520.jconf.core
  */
 class ConfNode {
     Map children = [:]
+    ConfNode parent
+
     def type
     def value
 
@@ -15,6 +17,10 @@ class ConfNode {
     def set(String key, ConfNode child){
         children.put(key, child)
     }
+
+    def del(String key){
+        children.remove(key)
+    }
 }
 
 enum NodeType {
@@ -22,8 +28,7 @@ enum NodeType {
     STRING,
     OBJECT,
     ARRAY,
-    BOOLEAN,
-    ROOT
+    BOOLEAN
 
     static NodeType getType(def className){
         switch (className) {
