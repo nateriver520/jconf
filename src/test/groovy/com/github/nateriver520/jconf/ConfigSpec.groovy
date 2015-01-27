@@ -54,6 +54,19 @@ class ConfigSpec extends Specification {
         conf.getString("persion.mail", "example@example.com") == "example@example.com"
     }
 
+    def "parser xml config"() {
+        when:
+        def conf = new Config(this.getClass().getResource('/xml/config.xml').path)
+
+        then:
+        // can find key
+        conf.getString("app.host") == "localhost"
+        conf.getInteger("app.port") == 80
+        conf.getBoolean("debug")
+
+        // key miss
+        conf.getString("persion.mail", "example@example.com") == "example@example.com"
+    }
 
     def "parser config without assign file type"() {
         when:

@@ -5,7 +5,8 @@ JConf
 
 JConf is a easy and light library for config module in Java or Groovy applications.
 
-Currently this library support [JSON](http://en.wikipedia.org/wiki/JSON), [YAML](http://en.wikipedia.org/wiki/YAML), [INI](https://en.wikipedia.org/wiki/INI_file)
+Currently this library support [JSON](http://en.wikipedia.org/wiki/JSON) , [YAML](http://en.wikipedia.org/wiki/YAML) , [INI](https://en.wikipedia.org/wiki/INI_file), [XML](https://en.wikipedia.org/wiki/XML)
+
 
 Notice
 ---------------
@@ -107,8 +108,9 @@ Road Map
 - ~~Support YAML~~
 - ~~Support JSON~~
 - ~~Support INI~~
-- Support XML
+- ~~Support XML~~
 - ~~Push to maven repository~~
+- Support java .properties
 
 
 LICENSE
