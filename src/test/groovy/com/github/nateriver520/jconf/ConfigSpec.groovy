@@ -9,7 +9,7 @@ class ConfigSpec extends Specification {
         def conf = new Config(this.getClass().getResource('/json/config.json').path, 'json')
 
         then:
-        // can find key
+        // key exist
         conf.getString("person.name") == 'Guillaume'
         conf.getInteger("person.age") == 33
         conf.getDouble("person.score") == 93.3.toDouble()
@@ -29,7 +29,7 @@ class ConfigSpec extends Specification {
         def conf = new Config(this.getClass().getResource('/yaml/config.yml').path)
 
         then:
-        // can find key
+        // key exist
         conf.getInteger("default.redis.port") == 6379
         conf.getString("default.redis.host") == "127.0.0.1"
         conf.getString("production.redis.db") == "0"
@@ -43,7 +43,7 @@ class ConfigSpec extends Specification {
         def conf = new Config(this.getClass().getResource('/ini/config.ini').path)
 
         then:
-        // can find key
+        // key exist
         conf.getString("dev.JDBC_URL") == "jdbc:h2:mem:mem_test;MODE=Oracle"
         conf.getString("prod.JDBC_URL") == "jdbc:oracle:thin:@prod-oracle:1521:prod"
         conf.getString("dev.JDBC_USERNAME") == ""
@@ -59,10 +59,24 @@ class ConfigSpec extends Specification {
         def conf = new Config(this.getClass().getResource('/xml/config.xml').path)
 
         then:
-        // can find key
+        // key exist
         conf.getString("app.host") == "localhost"
         conf.getInteger("app.port") == 80
         conf.getBoolean("debug")
+
+        // key miss
+        conf.getString("persion.mail", "example@example.com") == "example@example.com"
+    }
+
+
+    def "parser properties file"() {
+        when:
+        def conf = new Config(this.getClass().getResource('/properties/config.properties').path)
+
+        then:
+        // key exist
+        conf.getString("log4j.appender.Stdout") == "org.apache.log4j.ConsoleAppender"
+        conf.getString("log4j.rootLogger") == "INFO,Stdout"
 
         // key miss
         conf.getString("persion.mail", "example@example.com") == "example@example.com"

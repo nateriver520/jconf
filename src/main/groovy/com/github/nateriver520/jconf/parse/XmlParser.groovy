@@ -22,7 +22,7 @@ class XmlParser implements Parser{
                     type: NodeType.getType(childNode.class),
                     parent: root
             )
-            // don't exist name method, means reach to the bottom
+            // means reach to the bottom
             if(childNode.getClass() != Node){
                 root.value = childNode
                 root.type = NodeType.getType(childNode.class)

@@ -5,6 +5,7 @@ import com.github.nateriver520.jconf.core.ConfNode
 import com.github.nateriver520.jconf.core.NodeType
 import com.github.nateriver520.jconf.parse.IniParser
 import com.github.nateriver520.jconf.parse.JsonParser
+import com.github.nateriver520.jconf.parse.PropertiesParser
 import com.github.nateriver520.jconf.parse.XmlParser
 import com.github.nateriver520.jconf.parse.Parser
 import com.github.nateriver520.jconf.parse.YamlParser
@@ -39,6 +40,10 @@ class Config {
 
             case SupportType.XML.val:
                 this.parser = new XmlParser()
+                break
+
+            case SupportType.PROPERTIES.val:
+                this.parser = new PropertiesParser()
                 break
 
             default:
@@ -135,7 +140,8 @@ enum SupportType {
     JSON("json"),
     YAML("yml"),
     INI("ini"),
-    XML("xml")
+    XML("xml"),
+    PROPERTIES('properties')
 
     def val
 
