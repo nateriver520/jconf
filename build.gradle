@@ -1,35 +1,28 @@
 apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'signing'
 
-buildDir = 'target'
-jar.baseName = 'jconf'
 
-repositories {
-    mavenCentral()
-}
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
 
 allprojects {
-    apply plugin: 'java'
-    sourceCompatibility = 1.6
-    targetCompatibility = 1.6
-}
 
-task initProject(description: 'Initialize project directory structure.') << {
-    def defaultPackage = "com/github/nateriver520/jconf";
-    ['groovy', 'resources'].each { String dir ->
-        sourceSets*."$dir".srcDirs*.each { dir1 ->
-            def newDir = new File(dir1, defaultPackage);
-            newDir.mkdirs();
-        }
+    repositories {
+        mavenCentral()
+    }
+
+    group = POM_GROUP_ID
+    version = POM_VERSION
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
     }
 }
 
-task fatJar(type: Jar) {
-    manifest {
-    }
-    baseName = jar.baseName + '-all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
+
 
 dependencies {
     compile('org.codehaus.groovy:groovy-all:2.3.3')
@@ -39,3 +32,21 @@ dependencies {
 
     testCompile('org.spockframework:spock-core:0.7-groovy-2.0')
 }
+
+
+task fatJar(type: Jar) {
+    manifest {
+    }
+    baseName = jar.baseName + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+def isReleaseBuild() {
+    return version.contains("SNAPSHOT") == false
+}
+
+
+apply plugin: 'idea'
+//apply from: 'config/maven_push.gradle'
+
