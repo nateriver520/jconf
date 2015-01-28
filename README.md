@@ -23,7 +23,7 @@ add dependency
     <dependency>
         <groupId>com.github.nateriver520</groupId>
         <artifactId>jconf</artifactId>
-        <version>0.2.0</version>
+        <version>0.2.1</version>
     </dependency>
 ```
 
@@ -84,6 +84,10 @@ Here is example
     // delete conf
     conf.del("person::name")
     conf.exist("person::name") // false
+
+    // we can reset config to the origin version without change
+    conf.reset()
+
 ```
 
 
