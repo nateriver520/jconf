@@ -5,22 +5,22 @@ import org.ho.yaml.Yaml
 import com.github.nateriver520.jconf.core.ConfNode
 
 
-class YamlParser implements Parser {
+class YmlParser implements Parser {
 
     @Override
     ConfNode parse(def confText) {
-        def yamlNode = Yaml.load(confText)
+        def ymlNode = Yaml.load(confText)
         def rootNode = new ConfNode(type: NodeType.OBJECT)
-        fillNode(rootNode, yamlNode)
+        fillNode(rootNode, ymlNode)
         return rootNode
     }
 
-    def fillNode(ConfNode root, def yamlNode) {
-        if (yamlNode.getClass() != HashMap) {
-            root.value = yamlNode
+    def fillNode(ConfNode root, def ymlNode) {
+        if (ymlNode.getClass() != HashMap) {
+            root.value = ymlNode
             return
         }
-        yamlNode.each { k, v ->
+        ymlNode.each { k, v ->
             ConfNode child = new ConfNode(
                     type: NodeType.getType(v.class),
                     parent: root

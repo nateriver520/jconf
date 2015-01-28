@@ -5,7 +5,7 @@ import spock.lang.Specification
 
 class YamlParserSpec extends Specification {
 
-    Parser yamlParser = new YamlParser()
+    Parser yamlParser = new YmlParser()
 
     def "yaml parser"() {
         when:

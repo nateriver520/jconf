@@ -3,13 +3,7 @@ package com.github.nateriver520.jconf
 import com.github.nateriver520.jconf.cache.ConfCache
 import com.github.nateriver520.jconf.core.ConfNode
 import com.github.nateriver520.jconf.core.NodeType
-import com.github.nateriver520.jconf.parse.IniParser
-import com.github.nateriver520.jconf.parse.JsonParser
-import com.github.nateriver520.jconf.parse.PropertiesParser
-import com.github.nateriver520.jconf.parse.XmlParser
 import com.github.nateriver520.jconf.parse.Parser
-import com.github.nateriver520.jconf.parse.YamlParser
-
 
 class Config {
     private static def _cache = new ConfCache()
@@ -26,30 +20,7 @@ class Config {
             this.root = _cache.get(confPath)
         }
 
-        switch (fileType.toLowerCase()) {
-            case SupportType.JSON.val:
-                this.parser = new JsonParser()
-                break
-            case SupportType.YAML.val:
-                this.parser = new YamlParser()
-                break
-
-            case SupportType.INI.val:
-                this.parser = new IniParser()
-                break
-
-            case SupportType.XML.val:
-                this.parser = new XmlParser()
-                break
-
-            case SupportType.PROPERTIES.val:
-                this.parser = new PropertiesParser()
-                break
-
-            default:
-                throw new Exception("don't support type:${fileType} conf file.")
-        }
-
+        this.parser = getParser(fileType)
         if (!root) {
             root = parser.parse(new File(confPath).text)
             _cache.set(confPath, root)
@@ -58,16 +29,6 @@ class Config {
 
     Config(String confPath) {
         this(confPath, confPath.lastIndexOf('.').with { it != -1 ? confPath[it + 1..-1] : '' })
-    }
-
-    private ConfNode get(String key) {
-        ConfNode node = root
-        key.split(separator).find { k ->
-            if (!node) return true
-            node = node.get(k)
-            return false
-        }
-        node
     }
 
     String getString(String key, String defVal = '') {
@@ -134,18 +95,22 @@ class Config {
     def exist(String key) {
         get(key) ? true : false
     }
-}
 
-enum SupportType {
-    JSON("json"),
-    YAML("yml"),
-    INI("ini"),
-    XML("xml"),
-    PROPERTIES('properties')
+    private ConfNode get(String key) {
+        ConfNode node = root
+        key.split(separator).find { k ->
+            if (!node) return true
+            node = node.get(k)
+            return false
+        }
+        node
+    }
 
-    def val
-
-    SupportType(val) {
-        this.val = val
+    static def getParser(String fileType) {
+        try {
+            Eval.me("return new ${"com.github.nateriver520.jconf.parse.${fileType[0].toUpperCase() + fileType.substring(1).toLowerCase()}Parser"}()")
+        } catch (Exception e) {
+            throw new Exception("don't support type:${fileType} conf file.")
+        }
     }
 }
