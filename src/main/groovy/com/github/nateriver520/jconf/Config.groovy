@@ -10,26 +10,62 @@ class Config {
     ConfNode root
     Parser parser
     def separator = "\\."
+    def configType
 
-    Config(String confPath, String fileType) {
-        // get the absolute path for cache
-        confPath = new File(confPath).absolutePath
-
-        if (_cache.get(confPath)) {
+    private Config(String confText, ConfigType configType, String cacheKey, String fileType) {
+        this.configType = configType
+        if (_cache.get(cacheKey)) {
             // if find in cache, get data from cache
-            this.root = _cache.get(confPath)
+            this.root = _cache.get(cacheKey)
         }
 
-        this.parser = getParser(fileType)
+        setParser(fileType)
+
         if (!root) {
-            root = parser.parse(new File(confPath).text)
-            _cache.set(confPath, root)
+            root = parser.parse(confText)
+            _cache.set(cacheKey, root)
         }
     }
 
-    Config(String confPath) {
-        this(confPath, confPath.lastIndexOf('.').with { it != -1 ? confPath[it + 1..-1] : '' })
+    private Config(String confText, ConfigType configType, String fileType) {
+        this(confText, configType, confText, fileType)
     }
+
+    Config(String confPath, String fileType = null) {
+        this(
+                new File(confPath).text,
+                ConfigType.FILEPATH,
+                new File(confPath).absolutePath,
+                fileType ? fileType : confPath.lastIndexOf('.').with { it != -1 ? confPath[it + 1..-1] : '' }
+        )
+    }
+
+    Config(InputStream stream, String fileType) {
+        this(
+                stream.text,
+                ConfigType.STREAM,
+                fileType
+        )
+    }
+
+    static Config loadFromText(String confText, String fileType) {
+        new Config(
+                confText,
+                ConfigType.TEXT,
+                confText,
+                fileType
+        )
+    }
+
+    static Config loadFromFile(String confPath, String fileType = null) {
+        new Config(confPath, fileType)
+    }
+
+
+    static Config loadFromStream(InputStream stream, String fileType) {
+        new Config(stream, fileType)
+    }
+
 
     String getString(String key, String defVal = '') {
         ConfNode node = get(key)
@@ -106,11 +142,19 @@ class Config {
         node
     }
 
-    static def getParser(String fileType) {
+    def setParser(String fileType) {
+        if (!fileType)
+            throw new Exception("must give config type: json, yml, ini, xml")
         try {
-            Eval.me("return new ${"com.github.nateriver520.jconf.parse.${fileType[0].toUpperCase() + fileType.substring(1).toLowerCase()}Parser"}()")
+            this.parser = Eval.me("return new ${"com.github.nateriver520.jconf.parse.${fileType[0].toUpperCase() + fileType.substring(1).toLowerCase()}Parser"}()")
         } catch (Exception e) {
             throw new Exception("don't support type:${fileType} conf file.")
         }
     }
+}
+
+enum ConfigType {
+    TEXT,
+    FILEPATH,
+    STREAM
 }

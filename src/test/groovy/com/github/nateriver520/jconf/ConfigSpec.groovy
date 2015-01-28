@@ -90,14 +90,14 @@ class ConfigSpec extends Specification {
         conf.root.children.size() != 0
 
         when:
-        new Config("/tmp/conf")
+        new Config(this.getClass().getResource('/unsupport/config.unsupport').path)
 
         then:
         Exception ex = thrown()
         ex.getMessage().contains("don't support type")
     }
 
-    def "when config do not exist , then it will throw file not found exception"(){
+    def "when config do not exist , then it will throw file not found exception"() {
         when:
         new Config('/donnotexist.json')
         then:
@@ -105,13 +105,14 @@ class ConfigSpec extends Specification {
 
     }
 
-    def "when parse a config file from the same path, then it will read from cache after the first time"(){
+    def "when parse a config file from the same path, then it will read from cache after the first time"() {
         when:
         def jsonPath = this.getClass().getResource('/json/config.json').path
         new Config(jsonPath)
         new Config(jsonPath)
+
         then:
-            Config._cache.size() != 0
+        Config._cache.size() != 0
     }
 
     def "parser json config with separator"() {
@@ -152,6 +153,26 @@ class ConfigSpec extends Specification {
 
         conf.getInteger("mock.setting.port") == 0
         !conf.exist("mock.setting.port")
+    }
+
+    def "load config from text"() {
+        when:
+        def confText = """{
+                            "name": "jack"
+                        }"""
+        Config config = Config.loadFromText(confText, 'json')
+
+        then:
+        config.getString("name") == "jack"
+    }
+
+    def "load conf from stream"() {
+        when:
+        def stream = this.getClass().getResource('/json/config.json').openStream()
+        Config conf = new Config(stream, 'json')
+
+        then:
+        conf.getString("work") == "cs"
     }
 
 }

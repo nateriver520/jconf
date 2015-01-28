@@ -74,6 +74,7 @@ Here is example
 ```groovy
 
     // support yaml, ini
+    // also support load from text or stream
     def conf = new Config('conf.json')
 
     conf.getString("person.name") // "Guillaume"
@@ -103,14 +104,6 @@ Here is example
     conf.del("person::name")
     conf.exist("person::name") // false
 ```
-Road Map
-------------
-- ~~Support YAML~~
-- ~~Support JSON~~
-- ~~Support INI~~
-- ~~Support XML~~
-- ~~Push to maven repository~~
-- ~~Support java properties file~~
 
 
 LICENSE
