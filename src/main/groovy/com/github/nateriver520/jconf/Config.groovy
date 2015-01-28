@@ -10,7 +10,10 @@ class Config {
     ConfNode root
     Parser parser
     def separator = "\\."
+
     def configType
+    def cacheKey
+    def originContent
 
     private Config(String confText, ConfigType configType, String cacheKey, String fileType) {
         this.configType = configType
@@ -20,10 +23,11 @@ class Config {
         }
 
         setParser(fileType)
+        this.cacheKey = cacheKey
+        this.originContent = confText
 
         if (!root) {
-            root = parser.parse(confText)
-            _cache.set(cacheKey, root)
+            initConfig()
         }
     }
 
@@ -140,6 +144,15 @@ class Config {
             return false
         }
         node
+    }
+
+    private initConfig() {
+        this.root = parser.parse(originContent)
+        _cache.set(cacheKey, root)
+    }
+
+    def reset() {
+        initConfig()
     }
 
     def setParser(String fileType) {

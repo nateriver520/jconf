@@ -175,4 +175,26 @@ class ConfigSpec extends Specification {
         conf.getString("work") == "cs"
     }
 
+    def "when change conf and reset, then it will return to origin"() {
+        when:
+        def confText = """{
+                            "name": "jack"
+                        }"""
+        Config config = Config.loadFromText(confText, 'json')
+        config.set("age", 16)
+        config.set("math.score",82.5)
+        config.del("name")
+
+        then:
+        config.getDouble("math.score") == 82.5.toDouble()
+        !config.exist("name")
+
+        when:
+        config.reset()
+
+        then:
+        config.getString("name") == "jack"
+        !config.exist("age")
+    }
+
 }
