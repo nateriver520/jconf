@@ -20,4 +20,7 @@ class ConfCache implements Cache<String, ConfNode> {
         map.remove(s)
     }
 
+    def size(){
+        map.size()
+    }
 }

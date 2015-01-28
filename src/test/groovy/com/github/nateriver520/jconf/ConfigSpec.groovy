@@ -82,7 +82,7 @@ class ConfigSpec extends Specification {
         conf.getString("persion.mail", "example@example.com") == "example@example.com"
     }
 
-    def "parser config without assign file type"() {
+    def "when config file don't assign file type or input unsupported file, then it will throw exception with don't support type"() {
         when:
         def conf = new Config(this.getClass().getResource('/json/config.json').path)
 
@@ -95,6 +95,23 @@ class ConfigSpec extends Specification {
         then:
         Exception ex = thrown()
         ex.getMessage().contains("don't support type")
+    }
+
+    def "when config do not exist , then it will throw file not found exception"(){
+        when:
+        new Config('/donnotexist.json')
+        then:
+        thrown FileNotFoundException
+
+    }
+
+    def "when parse a config file from the same path, then it will read from cache after the first time"(){
+        when:
+        def jsonPath = this.getClass().getResource('/json/config.json').path
+        new Config(jsonPath)
+        new Config(jsonPath)
+        then:
+            Config._cache.size() != 0
     }
 
     def "parser json config with separator"() {
