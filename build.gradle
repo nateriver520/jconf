@@ -48,5 +48,6 @@ def isReleaseBuild() {
 
 
 apply plugin: 'idea'
+//apply from: 'setting.gradle'
 //apply from: 'config/maven_push.gradle'
 

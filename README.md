@@ -17,32 +17,13 @@ Usage
 ----------------
 - For maven
 
-allow snapshots
-
-```xml
-    <profiles>
-        <profile>
-            <id>allow-snapshots</id>
-            <activation><activeByDefault>true</activeByDefault></activation>
-            <repositories>
-                <repository>
-                    <id>snapshots-repo</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                    <releases><enabled>false</enabled></releases>
-                    <snapshots><enabled>true</enabled></snapshots>
-                </repository>
-            </repositories>
-        </profile>
-    </profiles>
-```
-
 add dependency
 
 ```xml
     <dependency>
         <groupId>com.github.nateriver520</groupId>
         <artifactId>jconf</artifactId>
-        <version>0.2.0-SNAPSHOT</version>
+        <version>0.2.0</version>
     </dependency>
 ```
 
