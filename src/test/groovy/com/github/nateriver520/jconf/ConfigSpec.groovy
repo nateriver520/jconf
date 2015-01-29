@@ -1,5 +1,7 @@
 package com.github.nateriver520.jconf
 
+import com.github.nateriver520.jconf.cache.Cache
+import com.github.nateriver520.jconf.core.ConfNode
 import spock.lang.Specification
 
 
@@ -105,16 +107,6 @@ class ConfigSpec extends Specification {
 
     }
 
-    def "when parse a config file from the same path, then it will read from cache after the first time"() {
-        when:
-        def jsonPath = this.getClass().getResource('/json/config.json').path
-        new Config(jsonPath)
-        new Config(jsonPath)
-
-        then:
-        Config._cache.size() != 0
-    }
-
     def "parser json config with separator"() {
         when:
         def conf = new Config(this.getClass().getResource('/json/config.json').path, 'json')
@@ -182,7 +174,7 @@ class ConfigSpec extends Specification {
                         }"""
         Config config = Config.loadFromText(confText, 'json')
         config.set("age", 16)
-        config.set("math.score",82.5)
+        config.set("math.score", 82.5)
         config.del("name")
 
         then:

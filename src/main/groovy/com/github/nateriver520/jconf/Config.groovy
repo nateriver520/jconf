@@ -17,10 +17,8 @@ class Config {
 
     private Config(String confText, ConfigType configType, String cacheKey, String fileType) {
         this.configType = configType
-        if (_cache.get(cacheKey)) {
-            // if find in cache, get data from cache
-            this.root = _cache.get(cacheKey)
-        }
+        // if find in cache, get data from cache
+        root = _cache.get(cacheKey)
 
         setParser(fileType)
         this.cacheKey = cacheKey
