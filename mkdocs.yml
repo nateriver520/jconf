@@ -1,0 +1,5 @@
+site_name: Jconf Docs
+
+pages:
+- ['index.md', 'Home']
+- ['getting-started.md', 'Getting Started']
