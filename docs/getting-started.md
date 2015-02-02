@@ -5,6 +5,7 @@ It's really easy to get started with JConf. This section shows you how.
 ## Import JConf to you project
 
 ### Maven
+
 ```xml
     <dependency>
         <groupId>com.github.nateriver520</groupId>
@@ -14,6 +15,7 @@ It's really easy to get started with JConf. This section shows you how.
 ```
 
 ### Gradle
+
 ```
     compile 'com.github.nateriver520:jconf:0.2.1'
 ```
@@ -39,7 +41,8 @@ Once you have a config file ***config.json***
 
 You can read config like this:
 
-***java***
+### java
+
 ```java
 
     // support yaml, ini
@@ -56,9 +59,9 @@ You can read config like this:
 ```
 
 
-***groovy***
+### groovy
 
-```groovy
+```java
 
     // support yaml, ini
     // also support load from text or stream

@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/nateriver520/jconf.svg?branch=master)](https://travis-ci.org/nateriver520/jconf)
+[![Build Status](https://readthedocs.org/projects/jconf/badge/?version=latest)](http://jconf.readthedocs.org/en/latest/)
 
 JConf
 ===============
@@ -6,6 +7,8 @@ JConf
 JConf is a easy and light library for config module in Java or Groovy applications.
 
 Currently this library support [JSON](http://en.wikipedia.org/wiki/JSON), [YAML](http://en.wikipedia.org/wiki/YAML), [INI](https://en.wikipedia.org/wiki/INI_file), [XML](https://en.wikipedia.org/wiki/XML), [Properties](http://en.wikipedia.org/wiki/.properties)
+
+Visit [http://jconf.readthedocs.org/en/latest/](http://jconf.readthedocs.org/en/latest/) for more detail info
 
 Usage
 ----------------

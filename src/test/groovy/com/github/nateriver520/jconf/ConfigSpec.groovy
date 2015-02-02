@@ -1,7 +1,5 @@
 package com.github.nateriver520.jconf
 
-import com.github.nateriver520.jconf.cache.Cache
-import com.github.nateriver520.jconf.core.ConfNode
 import spock.lang.Specification
 
 
