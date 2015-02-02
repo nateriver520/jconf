@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/nateriver520/jconf.svg?branch=master)](https://travis-ci.org/nateriver520/jconf)
-[![Build Status](https://readthedocs.org/projects/jconf/badge/?version=latest)](http://jconf.readthedocs.org/en/latest/)
+[![Documentation Status](https://readthedocs.org/projects/jconf/badge/?version=latest)](https://readthedocs.org/projects/jconf/?badge=latest)
 
 JConf
 ===============
